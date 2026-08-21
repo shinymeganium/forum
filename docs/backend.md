@@ -6,3 +6,6 @@
 - cors
 - dotenv
 - nodemon
+
+- jwt
+- bcrypt
