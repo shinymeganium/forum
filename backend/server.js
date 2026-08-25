@@ -1,14 +1,21 @@
-require("dotenv").config();
+import "dotenv/config";
+import express from "express";
+import mongoose from "mongoose";
+import registerRouter from "./routes/register.js";
+import loginRouter from "./routes/login.js";
+import usersRouter from "./routes/users.js";
 
-const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 
+console.log("connecting to mongodb");
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("connected to mongodb"))
 .catch(err => console.error(err));
 
+// middleware - parses json requests bodies
 app.use(express.json());
+// parses form data
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({
@@ -16,10 +23,10 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-const authRouter = require("./routes/auth.js");
-app.use("/api/auth", authRouter);
+app.use("/register", registerRouter);
 
-const usersRouter = require("./routes/users.js");
+app.use("/login", loginRouter);
+
 app.use("/api/users", usersRouter);
 
 app.listen(process.env.PORT, () => {
