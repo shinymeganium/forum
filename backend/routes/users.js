@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const users = await User.find();
-  res.json(users);
+  res.status(200).json(users);
 });
 
 export default router;

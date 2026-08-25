@@ -5,26 +5,37 @@ import bcrypt from "bcrypt";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  const password = req.body.password;
-  // salt protects from rainbow table attacks
-  // how much work bcrypt does while hashing
-  const saltRounds = 10;
-  // random data - users with same password get different hashes
-  const salt = bcrypt.genSaltSync(saltRounds);
-  const hash = bcrypt.hashSync(password, salt);
+  try {
+    const existingUser = await User.findOne({ username: req.body.username });
+    const existingEmail = await User.findOne({ email: req.body.email });
 
-  const user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    passwordHash: hash,
-    role: "user"
-  });
+    // check if username or email already exists in db
+    if (existingUser) 
+      return res.status(409).json({ message: "username already exists"});
+    if (existingEmail)
+      return res.status(409).json({ message: "email already exists" });
 
-  await user.save();
+    const password = req.body.password;
+    // salt protects from rainbow table attacks
+    // how much work bcrypt does while hashing
+    const saltRounds = 10;
+    const hash = await bcrypt.hash(password, saltRounds);
 
-  res.json({
-    message: "user saved"
-  });
+    const user = new User({
+      username: req.body.username,
+      email: req.body.email,
+      passwordHash: hash,
+      role: "user"
+    });
+
+    await user.save();
+
+    return res.status(201).json({ message: "user saved" });
+  }
+  catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "internal server error" });
+  }
 });
 
 export default router;
