@@ -11,7 +11,10 @@ router.get("/", async (req, res) => {
 router.route("/:id").
   get(async (req, res) => {
     try {
-      const user = await User.findOne(req.body._id);
+      const user = await User.findById(req.params.id).select("-hash");
+      if (!user)
+        return res.status(404).json({ message: "user not found" });
+
       return res.status(200).json(user);
     }
     catch (err) {

@@ -14,6 +14,8 @@ mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("connected to mongodb"))
 .catch(err => console.error(err));
 
+//await mongoose.connection.dropDatabase();
+
 // middleware - parses json requests bodies
 app.use(express.json());
 // parses form data
