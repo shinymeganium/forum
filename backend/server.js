@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import registerRouter from "./routes/register.js";
 import loginRouter from "./routes/login.js";
 import usersRouter from "./routes/users.js";
+import threadsRouter from "./routes/threads.js";
+import profileRouter from "./routes/profile.js";
 
 const app = express();
 
@@ -27,7 +29,11 @@ app.use("/register", registerRouter);
 
 app.use("/login", loginRouter);
 
-app.use("/api/users", usersRouter);
+app.use("/profile", profileRouter);
+
+app.use("/users", usersRouter);
+
+app.use("/threads", threadsRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`server running on port ${process.env.PORT}`);

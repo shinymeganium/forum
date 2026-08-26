@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
     const user = new User({
       username: req.body.username,
       email: req.body.email,
-      passwordHash: hash,
+      hash: hash,
       role: "user"
     });
 
