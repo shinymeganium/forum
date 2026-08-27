@@ -50,11 +50,16 @@ router.route("/:id").
   }).
   put(authenticateToken, async (req, res) => {
     try {
-      const thread = await Thread.findByIdAndUpdate(req.params.id,
+      const thread = await Thread.findByIdAndUpdate(
+        req.params.id,
         { title: req.body.title, content: req.body.content },
-        { new: true });
+        { returnDocument: "after" });
+
       if (!thread)
         return res.status(404).json({ message: "thread not found" });
+
+      if (thread.author.toString() !== req.user.userId)
+        return res.status(403).json({ message: "access denied" });
 
       return res.status(200).json(thread);
     }
@@ -66,8 +71,13 @@ router.route("/:id").
   delete(authenticateToken, async (req, res) => {
     try {
       const thread = await Thread.findByIdAndDelete(req.params.id);
+
       if (!thread)
         return res.status(404).json({ message: "thread not found" });
+
+      if (thread.author.toString() !== req.user.userId)
+        return res.status(403).json({ message: "access denied" });
+
       return res.status(200).json({ message: "thread deleted" });
     }
     catch (err) {
