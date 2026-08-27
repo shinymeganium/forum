@@ -21,14 +21,6 @@ router.route("/:id").
       console.error(err);
       return res.status(500).json({ message: "internal server error" });
     }
-  }).
-  put((req, res) => {
-    try {
-
-    }
-    catch (err) {
-
-    }
   });
 
 export default router;

@@ -1,5 +1,6 @@
 import express from "express";
 import Thread from "../models/Thread.js";
+import Comment from "../models/Comment.js";
 import authenticateToken from "../middleware/auth.js";
 
 const router = express.Router();
@@ -26,7 +27,6 @@ router.route("/").
       });
 
       await post.save();
-
       return res.status(201).json({ message: "thread created" });
     }
     catch (err) {
@@ -64,7 +64,7 @@ router.route("/:id").
       thread.content = req.body.content;
       await thread.save();
 
-      return res.status(200).json(thread);
+      return res.status(200).json({ message: "thread edited" });
     }
     catch (err) {
       console.log(err);
@@ -83,7 +83,6 @@ router.route("/:id").
         return res.status(403).json({ message: "access denied" });
 
       await thread.deleteOne();
-
       return res.status(200).json({ message: "thread deleted" });
     }
     catch (err) {
@@ -92,5 +91,16 @@ router.route("/:id").
     }
   });
 
+  router.route("/:id/comments").
+    get(async (req, res) => {
+      try {
+        const comments = await Comment.find().sort({ "createdAt": -1 }).limit(20);
+        return res.status(200).json(comments);
+      }
+      catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "internal server error" });
+      }
+    });
 
 export default router;

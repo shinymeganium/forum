@@ -6,6 +6,7 @@ import loginRouter from "./routes/login.js";
 import usersRouter from "./routes/users.js";
 import threadsRouter from "./routes/threads.js";
 import profileRouter from "./routes/profile.js";
+import commentsRouter from "./routes/comments.js";
 
 const app = express();
 
@@ -36,6 +37,8 @@ app.use("/profile", profileRouter);
 app.use("/users", usersRouter);
 
 app.use("/threads", threadsRouter);
+
+app.use("/comments", commentsRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`server running on port ${process.env.PORT}`);

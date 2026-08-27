@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const threadSchema = new mongoose.Schema(
-  {
+{
   title: {
     type: String,
     required: true,
@@ -18,9 +18,9 @@ const threadSchema = new mongoose.Schema(
     categories: {
       type: String,
     }
-  },
-  {
-    timestamps: true
-  });
+},
+{
+  timestamps: true
+});
 
 export default mongoose.model("Thread", threadSchema);
