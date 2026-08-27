@@ -22,7 +22,9 @@ router.route("/").
       if (!thread)
         return res.status(404).json({ message: "thread not found" });
 
-      console.log(req.body)
+      if (!req.body.content)
+        return res.status(400).json({ message: "content is required" });
+
       const comment = new Comment({
         content: req.body.content,
         author: req.user.userId,
