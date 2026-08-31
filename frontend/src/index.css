@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme {
+  --color-soft-pink: #F4B6C2;
+  --color-muted-lavender: #B9A3E3;
+}
