@@ -1,3 +1,4 @@
+import { useParams } from "react-router";
 import Layout from "../components/layout/Layout";
 import ThreadDetail from "../components/thread/ThreadDetail";
 import CommentForm from "../components/comment/CommentForm";

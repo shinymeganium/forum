@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import registerRouter from "./routes/register.js";
 import loginRouter from "./routes/login.js";
 import usersRouter from "./routes/users.js";
@@ -16,6 +17,8 @@ mongoose.connect(process.env.MONGO_URI)
 .catch(err => console.error(err));
 
 //await mongoose.connection.dropDatabase();
+
+app.use(cors());
 
 // middleware - parses json requests bodies
 app.use(express.json());

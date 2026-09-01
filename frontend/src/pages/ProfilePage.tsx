@@ -1,9 +1,13 @@
+import axios from "axios";
+import { useState } from "react";
 import Layout from "../components/layout/Layout";
 import ProfileCard from "../components/profile/ProfileCard";
 import ThreadList from "../components/thread/ThreadList";
 import CommentList from "../components/comment/CommentList";
 
 export default function ProfilePage() {
+  const [profile, setProfile] = useState(null);
+  
   return (
     <Layout>
       <div className="max-w-4xl mx-auto space-y-6 flex flex-col gap-5">

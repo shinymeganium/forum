@@ -11,11 +11,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<FrontPage />} />
-      <Route path="/" element={<ProfilePage />} />
-      <Route path="/" element={<ThreadViewPage />} />
-      <Route path="/" element={<CreateThreadPage />} />
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/" element={<RegisterPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/threads/:id" element={<ThreadViewPage />} />
+      <Route path="/create" element={<CreateThreadPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
     </Routes>
   );
 }
