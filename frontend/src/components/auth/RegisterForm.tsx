@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { registerRequest } from "../../api/authApi";
 import { useNavigate } from "react-router";
 import Button from "../ui/Button";
@@ -8,30 +8,49 @@ export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const register = registerRequest;
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
-    
+  const handleSubmit = async (
+    e: React.SubmitEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    try {
+      await registerRequest(username, email, password);
+
+      navigate("/login");
+    }
+    catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <Input
-        placeholder="Username"
         label="Username"
+        placeholder="Username"
+        name="username"
+        value={username}
+        onChange={e => setUsername(e.target.value)}
       />
 
       <Input
-        type="email"
         placeholder="Email"
         label="Email"
+        type="email"
+        name="email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
       />
 
       <Input
-        type="password"
         placeholder="Password"
         label="Password"
+        type="password"
+        name="password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
       />
 
       <Button

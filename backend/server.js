@@ -31,17 +31,17 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-app.use("/register", registerRouter);
+app.use("/api/register", registerRouter);
 
-app.use("/login", loginRouter);
+app.use("/api/login", loginRouter);
 
-app.use("/profile", profileRouter);
+app.use("/api/profile", profileRouter);
 
-app.use("/users", usersRouter);
+app.use("/api/users", usersRouter);
 
-app.use("/threads", threadsRouter);
+app.use("/api/threads", threadsRouter);
 
-app.use("/comments", commentsRouter);
+app.use("/api/comments", commentsRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`server running on port ${process.env.PORT}`);

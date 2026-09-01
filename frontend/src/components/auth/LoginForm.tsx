@@ -12,7 +12,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.SubmitEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
 
@@ -40,7 +40,7 @@ export default function LoginForm() {
         placeholder="Username"
         name="username"
         value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={e => setUsername(e.target.value)}
       />
 
       <Input
@@ -49,7 +49,7 @@ export default function LoginForm() {
         type="password"
         name="password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={e => setPassword(e.target.value)}
       />
 
       <Button
