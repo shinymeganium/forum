@@ -1,9 +1,22 @@
+import { useState } from "react";
+import { registerRequest } from "../../api/authApi";
+import { useNavigate } from "react-router";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
 export default function RegisterForm() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const register = registerRequest;
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    
+  };
+
   return (
-    <form className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <Input
         placeholder="Username"
         label="Username"

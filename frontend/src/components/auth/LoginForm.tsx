@@ -1,12 +1,14 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useAuthStore } from "../../stores/authStore";
+import { loginRequest } from "../../api/authApi";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const login = useAuthStore(state => state.login);
   const navigate = useNavigate();
 
   const handleSubmit = async (
@@ -14,16 +16,16 @@ export default function LoginForm() {
   ) => {
     e.preventDefault();
 
-
     try {
-      const res = await axios.post("http://localhost:3000/login",
-        { username, password }
+      const res = await loginRequest(username, password);
+      localStorage.setItem("token", res.token);
+
+      login(
+        res.token,
+        res.userId,
+        res.username,
+        res.role
       );
-
-      //console.log(res.data);
-
-      localStorage.setItem("token", res.data.token);
-
       navigate("/profile");
     }
     catch (err) {

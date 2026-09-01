@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 
     //console.log("user:", user);
 
-    return res.status(200).json({ token, role: user.role });
+    return res.status(200).json({ token, userId: user._id, username: user.username, role: user.role });
   }
   catch (err) {
     console.log(err);
