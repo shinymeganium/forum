@@ -6,6 +6,12 @@ export default function Sidebar() {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
   const logout = useAuthStore(state => state.logout);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    logout();
+    navigate("/");
+  };
+
   return (
     <aside>
       <nav className="sticky top-16 hidden md:flex flex-col gap-3 w-45 xl:w-65 h-[calc(100vh-4rem)] p-4 border-r border-gray-400 bg-white">
@@ -23,7 +29,7 @@ export default function Sidebar() {
           Profile
         </Link>
 
-        <button type="button" onClick={logout} className="font-medium hover:text-soft-pink text-left cursor-pointer">
+        <button type="button" onClick={handleLogout} className="font-medium hover:text-soft-pink text-left cursor-pointer">
           Logout
         </button>
         </>) : (
