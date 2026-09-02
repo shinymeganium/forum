@@ -53,12 +53,18 @@ export default function RegisterForm() {
         onChange={e => setPassword(e.target.value)}
       />
 
-      <Button
-        type="submit"
-        variant="primary"
-      >
-        Register
-      </Button>
+      <div className="flex justify-between">
+        <Button
+          type="submit"
+          variant="primary"
+        >
+          Register
+        </Button>
+
+        <button type="button" className="cursor-pointer" onClick={() => navigate("/")}>
+          Return
+        </button>
+      </div>
     </form>
   );
 }

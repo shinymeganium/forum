@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Route, Routes } from "react-router";
+import { restoreSession } from "./api/profileApi";
 import FrontPage from "./pages/FrontPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -7,6 +9,10 @@ import ThreadViewPage from "./pages/ThreadViewPage";
 import CreateThreadPage from "./pages/CreateThreadPage";
 
 function App() {
+  useEffect(() => {
+    const restore = async () => await restoreSession();
+    restore();
+  }, []);
 
   return (
     <Routes>

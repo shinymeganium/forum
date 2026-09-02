@@ -52,12 +52,18 @@ export default function LoginForm() {
         onChange={e => setPassword(e.target.value)}
       />
 
-      <Button
-        type="submit"
-        variant="primary"
-      >
-        Login
-      </Button>
+      <div className="flex justify-between">
+        <Button
+          type="submit"
+          variant="primary"
+        >
+          Login
+        </Button>
+
+        <button type="button" className="cursor-pointer" onClick={() => navigate("/")}>Return</button>
+      </div>
+
+      
     </form>
   );
 }
