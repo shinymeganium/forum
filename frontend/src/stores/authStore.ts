@@ -6,6 +6,7 @@ type AuthState = {
   username: string | null;
   role: string | null;
   isAuthenticated: boolean;
+  isLoading: boolean;
 
   initializeAuth: (token: string) => void;
 
@@ -17,6 +18,8 @@ type AuthState = {
   ) => void;
 
   logout: () => void;
+
+  setLoading: (loading: boolean) => void;
 };
 
 export const useAuthStore = create<AuthState>()((set) => ({
@@ -25,6 +28,7 @@ export const useAuthStore = create<AuthState>()((set) => ({
   username: null,
   role: null,
   isAuthenticated: false,
+  isLoading: true,
 
   initializeAuth: (token) => set(() => ({
     // if (token) {
@@ -42,6 +46,10 @@ export const useAuthStore = create<AuthState>()((set) => ({
     username: null,
     role: null,
     isAuthenticated: false
+  })),
+
+  setLoading: (loading) => set(() => ({
+    isLoading: loading
   }))
 
 }));

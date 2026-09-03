@@ -7,6 +7,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ThreadViewPage from "./pages/ThreadViewPage";
 import CreateThreadPage from "./pages/CreateThreadPage";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   useEffect(() => {
@@ -17,10 +18,23 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<FrontPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
+
+      <Route path="/profile" element={
+        <ProtectedRoute>
+          <ProfilePage />
+        </ProtectedRoute>
+        } />
+
       <Route path="/threads/:id" element={<ThreadViewPage />} />
-      <Route path="/create" element={<CreateThreadPage />} />
+
+      <Route path="/create" element={
+        <ProtectedRoute>
+          <CreateThreadPage />
+        </ProtectedRoute>
+      } />
+
       <Route path="/login" element={<LoginPage />} />
+      
       <Route path="/register" element={<RegisterPage />} />
     </Routes>
   );

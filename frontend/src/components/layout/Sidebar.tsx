@@ -19,24 +19,30 @@ export default function Sidebar() {
           Home
         </Link>
 
-        {isAuthenticated ?
-        (<>
-        <Link to="/create" className="font-medium hover:text-soft-pink">
-          Create a Thread
-        </Link>
-        
-        <Link to="/profile" className="font-medium hover:text-soft-pink">
-          Profile
-        </Link>
+        {isAuthenticated
+        ? (<>
+          <Link to="/create" className="font-medium hover:text-soft-pink">
+            Create a Thread
+          </Link>
+          
+          <Link to="/profile" className="font-medium hover:text-soft-pink">
+            Profile
+          </Link>
 
-        <button type="button" onClick={handleLogout} className="font-medium hover:text-soft-pink text-left cursor-pointer">
-          Logout
-        </button>
-        </>) : (
+          <button type="button" onClick={handleLogout} className="font-medium hover:text-soft-pink text-left cursor-pointer">
+            Logout
+          </button>
+        </>)
+        : (<>
           <button type="button" onClick={() => navigate("/login")} className="font-medium hover:text-soft-pink text-left cursor-pointer">
             Login
           </button>
-        )}
+
+          <button type="button" onClick={() => navigate("/register")} className="font-medium hover:text-soft-pink text-left cursor-pointer">
+            Register
+          </button>
+        </>)
+        }
       </nav>
     </aside>
   );

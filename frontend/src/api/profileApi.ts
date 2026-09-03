@@ -18,8 +18,12 @@ export const getProfile = async (): Promise<Profile> => {
 
 export const restoreSession = async () => {
   const token = localStorage.getItem("token");
+  const setLoading = useAuthStore.getState().setLoading;
 
-  if (!token) return;
+  if (!token) {
+    setLoading(false);
+    return;
+  }
 
   try {
     const profile = await getProfile();
@@ -31,10 +35,12 @@ export const restoreSession = async () => {
       profile.username,
       profile.role
     );
-    console.log(profile)
   }
   catch (err) {
     localStorage.removeItem("token");
     console.log(err);
+  }
+  finally {
+    setLoading(false);
   }
 };
