@@ -1,13 +1,22 @@
-import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getProfile } from "../api/profileApi";
+import type { Profile } from "../api/profileApi";
 import Layout from "../components/layout/Layout";
 import ProfileCard from "../components/profile/ProfileCard";
 import ThreadList from "../components/thread/ThreadList";
 import CommentList from "../components/comment/CommentList";
 
 export default function ProfilePage() {
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   
+  useEffect(() => {
+    const displayInfo = async () => {
+      const res = await getProfile();
+      setProfile(res);
+    }
+    
+    displayInfo();
+  }, []);
   return (
     <Layout>
       <div className="max-w-4xl mx-auto space-y-6 flex flex-col gap-5">
@@ -16,7 +25,7 @@ export default function ProfilePage() {
           Profile
           </h2>
 
-          <ProfileCard />
+          <ProfileCard profile={profile} />
         </section>
 
         <section>

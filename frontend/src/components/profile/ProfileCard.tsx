@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
-import { type Profile, getProfile } from "../../api/profileApi";
+import type { Profile } from "../../api/profileApi";
 import Card from "../ui/Card";
 
-export default function ProfileCard() {
-  const [profile, setProfile] = useState<Profile | null>(null);
+type ProfileCardProps = {
+  profile: Profile | null
+};
 
-  useEffect(() => {
-    const displayInfo = async () => {
-      const res = await getProfile();
-      setProfile(res);
-    }
-    
-    displayInfo();
-  }, []);
-
+export default function ProfileCard({ profile }: ProfileCardProps) {
   return (
     <Card>
       <div className="space-y-2">

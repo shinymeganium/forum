@@ -9,7 +9,7 @@ router.route("/").
   get(async (req, res) => {
     try {
       //await Thread.deleteMany();
-      const threads = await Thread.find().sort({ "createdAt": -1 }).limit(20);
+      const threads = await Thread.find().populate("author", "username").sort({ "createdAt": -1 }).limit(20);
       return res.status(200).json(threads);
     }
     catch (err) {
@@ -27,7 +27,7 @@ router.route("/").
       });
 
       await post.save();
-      return res.status(201).json({ message: "thread created" });
+      return res.status(201).json(post);
     }
     catch (err) {
       console.log(err);
@@ -38,7 +38,7 @@ router.route("/").
 router.route("/:id").
   get(async (req, res) => {
     try {
-      const thread = await Thread.findById(req.params.id);
+      const thread = await Thread.findById(req.params.id).populate("author", "username");
       if (!thread)
         return res.status(404).json({ message: "thread not found" });
 
@@ -94,7 +94,7 @@ router.route("/:id").
   router.route("/:id/comments").
     get(async (req, res) => {
       try {
-        const comments = await Comment.find().sort({ "createdAt": -1 }).limit(20);
+        const comments = await Comment.find().populate("author", "username").sort({ "createdAt": -1 }).limit(20);
         return res.status(200).json(comments);
       }
       catch (err) {

@@ -8,7 +8,7 @@ const router = express.Router();
 router.route("/").
   get(async (req, res) => {
     try {
-      const comments = await Comment.find().sort({ "createdAt": -1 }).limit(20);
+      const comments = await Comment.find().populate("author", "username").sort({ "createdAt": -1 }).limit(20);
       return res.status(200).json(comments);
     }
     catch (err) {
@@ -43,7 +43,7 @@ router.route("/").
 router.route("/:id").
   get(async (req, res) => {
     try {
-      const comment = await Comment.findById(req.params.id);
+      const comment = await Comment.findById(req.params.id).populate("author", "username");
       if (!comment)
         return res.status(404).json({ message: "comment not found" });
 

@@ -9,9 +9,9 @@ const router = express.Router();
 router.get("/", authenticateToken, async (req, res) => {
   try {
     const user = await User.findById(req.user.userId).select("-hash");
-    const threadCount = await Thread.countDocuments({
+    const threads = await Thread.countDocuments({
       author: req.user.userId });
-    const commentCount = await Comment.countDocuments({
+    const comments = await Comment.countDocuments({
       author: req.user.userId });
 
     return res.status(200).json({
@@ -19,8 +19,8 @@ router.get("/", authenticateToken, async (req, res) => {
       username: user.username,
       joined: user.createdAt,
       role: user.role,
-      threadCount,
-      commentCount
+      threads,
+      comments
     });
   }
   catch (err) {
