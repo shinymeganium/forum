@@ -1,8 +1,7 @@
 import type { Thread } from "../../api/threadApi";
 import Card from "../ui/Card";
 import Button from "../ui/Button";
-import { useEffect, useState } from "react";
-import api from "../../api/axios";
+import { formatDate } from "../../util/UtilityFunctions";
 
 type ThreadDetailProps = {
   thread: Thread | null;
@@ -10,21 +9,6 @@ type ThreadDetailProps = {
 
 export default function ThreadDetail({
   thread }: ThreadDetailProps) {
-  const [author, setAuthor] = useState();
-  const date = thread?.createdAt.slice(0, 10);
-
-  useEffect(() => {
-    const getThreadDetails = async () => {
-      if (!thread) return;
-
-      const author = await api.get(`/api/users/${thread?.author}`);
-
-      setAuthor(author.data.username);
-    }
-
-    getThreadDetails();
-  }, [thread]);
-
   return (
     <Card>
       <div className="space-y-4">
@@ -34,7 +18,7 @@ export default function ThreadDetail({
           </h1>
 
           <p className="text-sm text-gray-500">
-            {author} • {date}
+            {thread?.author.username} • {thread && formatDate(thread.createdAt)}
           </p>
         </div>
 

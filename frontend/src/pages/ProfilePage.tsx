@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getProfile } from "../api/profileApi";
-import type { Profile } from "../api/profileApi";
+import { getProfile, getProfileThreads } from "../api/profileApi";
+import { type Profile } from "../api/profileApi";
+import { type Thread } from "../api/threadApi";
 import Layout from "../components/layout/Layout";
 import ProfileCard from "../components/profile/ProfileCard";
 import ThreadList from "../components/thread/ThreadList";
@@ -8,14 +9,21 @@ import CommentList from "../components/comment/CommentList";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [threads, setThreads] = useState<Thread[] | null>(null);
   
   useEffect(() => {
-    const displayInfo = async () => {
+    const displayProfileInfo = async () => {
       const res = await getProfile();
       setProfile(res);
-    }
+    };
+
+    const displayProfileThreads = async () => {
+      const res = await getProfileThreads();
+      setThreads(res);
+    };
     
-    displayInfo();
+    displayProfileInfo();
+    displayProfileThreads();
   }, []);
   return (
     <Layout>
@@ -33,7 +41,7 @@ export default function ProfilePage() {
             My Threads
           </h2>
 
-          <ThreadList />
+          <ThreadList threads={threads} />
         </section>
 
         <section>

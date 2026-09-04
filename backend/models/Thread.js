@@ -16,7 +16,12 @@ const threadSchema = new mongoose.Schema(
       required: true
     },
     categories: {
-      type: String,
+      type: [String],
+      default: []
+    },
+    comments: {
+      type: Number,
+      default: 0
     }
 },
 {

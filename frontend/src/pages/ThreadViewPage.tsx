@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getThread } from "../api/threadApi";
-import type { Thread } from "../api/threadApi";
+import { type Thread } from "../api/threadApi";
 import Layout from "../components/layout/Layout";
 import ThreadDetail from "../components/thread/ThreadDetail";
 import CommentForm from "../components/comment/CommentForm";

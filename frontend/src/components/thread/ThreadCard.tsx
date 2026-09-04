@@ -5,7 +5,7 @@ type ThreadCardProps = {
   author: string,
   date: string,
   preview: string,
-  commentCount: number
+  comments: number
 };
 
 export default function ThreadCard({
@@ -13,7 +13,7 @@ export default function ThreadCard({
   author,
   date,
   preview,
-  commentCount
+  comments
 }: ThreadCardProps) {
   return (
     <Card>
@@ -31,7 +31,7 @@ export default function ThreadCard({
         </p>
 
         <p className="text-sm text-muted-lavender">
-          {commentCount} comments
+          {comments} comments
         </p>
       </div>
     </Card>

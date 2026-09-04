@@ -2,7 +2,7 @@ import type { Profile } from "../../api/profileApi";
 import Card from "../ui/Card";
 
 type ProfileCardProps = {
-  profile: Profile | null
+  profile: Profile | null;
 };
 
 export default function ProfileCard({ profile }: ProfileCardProps) {
