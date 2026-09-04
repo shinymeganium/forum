@@ -32,6 +32,10 @@ router.route("/").
       });
 
       await comment.save();
+
+      thread.comments += 1;
+      await thread.save();
+
       return res.status(201).json({ message: "comment created" });
     }
     catch (err) {
@@ -82,7 +86,12 @@ router.route("/:id").
       if (comment.author.toString() !== req.user.userId)
         return res.status(403).json({ message: "access denied" });
 
+      const thread = await Thread.findById(comment.threadId);
+      thread.comments += 1;
+      await thread.save();
+      
       await comment.deleteOne();
+
       return res.status(200).json({ message: "comment deleted" });
     }
     catch(err) {

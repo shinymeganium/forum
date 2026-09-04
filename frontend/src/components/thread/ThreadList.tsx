@@ -12,6 +12,7 @@ export default function ThreadList({ threads }: ThreadListProps) {
       {threads && threads.length > 0 && threads.map(thread => (
         <ThreadCard
           key={thread._id}
+          _id={thread._id}
           title={thread.title}
           author={thread.author.username}
           date={formatDate(thread.createdAt)}
