@@ -25,6 +25,7 @@ export default function ProfilePage() {
     displayProfileInfo();
     displayProfileThreads();
   }, []);
+  
   return (
     <Layout>
       <div className="max-w-4xl mx-auto space-y-6 flex flex-col gap-5">

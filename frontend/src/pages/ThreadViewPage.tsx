@@ -12,7 +12,9 @@ export default function ThreadViewPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const openEditing = () => {};
+  const openEditing = () => {
+    navigate(`/edit/${id}`);
+  };
 
   const deleteCurrentThread = async () => {
     if (thread) {

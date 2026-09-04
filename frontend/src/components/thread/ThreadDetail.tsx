@@ -2,6 +2,7 @@ import type { Thread } from "../../api/threadApi";
 import Card from "../ui/Card";
 import Button from "../ui/Button";
 import { formatDate } from "../../util/UtilityFunctions";
+import { useAuthStore } from "../../stores/authStore";
 
 type ThreadDetailProps = {
   thread: Thread | null;
@@ -11,6 +12,7 @@ type ThreadDetailProps = {
 
 export default function ThreadDetail({
   thread, openEditForm, deleteThread }: ThreadDetailProps) {
+  const isAuthorized = useAuthStore(state => state.isAuthenticated);
   if (!thread)
     return <div>Loading...</div>
   
@@ -31,7 +33,7 @@ export default function ThreadDetail({
           {thread.content}
         </p>
 
-        <div className="flex gap-2">
+        {isAuthorized && <div className="flex gap-2">
           <Button
             variant="secondary"
             onClick={openEditForm}  
@@ -45,7 +47,7 @@ export default function ThreadDetail({
           >
             Delete
           </Button>
-        </div>
+        </div>}
       </div>
     </Card>
   );

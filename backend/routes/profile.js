@@ -31,7 +31,7 @@ router.get("/", authenticateToken, async (req, res) => {
 
 router.get("/threads", authenticateToken, async (req, res) => {
   try {
-    const threads = await Thread.find({ author: req.user.userId }).sort({ "createdAt": -1 }).limit(20);
+    const threads = await Thread.find({ author: req.user.userId }).populate("author", "username").sort({ "createdAt": -1 }).limit(20);
     return res.status(200).json(threads);
   }
   catch (err) {

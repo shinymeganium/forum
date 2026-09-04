@@ -8,6 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ThreadViewPage from "./pages/ThreadViewPage";
 import CreateThreadPage from "./pages/CreateThreadPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import EditThreadPage from "./pages/EditThreadPage";
 
 function App() {
   useEffect(() => {
@@ -30,6 +31,12 @@ function App() {
       <Route path="/create" element={
         <ProtectedRoute>
           <CreateThreadPage />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/edit/:id" element={
+        <ProtectedRoute>
+          <EditThreadPage />
         </ProtectedRoute>
       } />
 

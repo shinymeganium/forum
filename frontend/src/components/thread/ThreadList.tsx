@@ -7,9 +7,15 @@ type ThreadListProps = {
 };
 
 export default function ThreadList({ threads }: ThreadListProps) {
+  if (!threads)
+    return <div>Loading...</div>;
+
+  if (threads.length < 1)
+    return <div>Seems to be empty here...</div>
+
   return (
     <div className="space-y-4">
-      {threads && threads.length > 0 && threads.map(thread => (
+      {threads.map(thread => (
         <ThreadCard
           key={thread._id}
           _id={thread._id}
@@ -17,7 +23,7 @@ export default function ThreadList({ threads }: ThreadListProps) {
           author={thread.author.username}
           date={formatDate(thread.createdAt)}
           preview={truncateText(thread.content, 150)}
-          comments={0}
+          comments={thread.comments}
         />
       ))}
     </div>

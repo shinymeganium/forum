@@ -1,50 +1,47 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { postThread } from "../../api/threadApi";
 import Input from "../ui/Input";
 import TextArea from "../ui/TextArea";
 import Button from "../ui/Button";
 
-export default function ThreadForm() {
-  const [title, setTitle] = useState("");
-  const [post, setPost] = useState("");
-  const navigate = useNavigate();
+export type ThreadFormData = {
+  title: string;
+  content: string;
+};
 
-  const handleSubmit = async (
-    e: React.SubmitEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
+type ThreadFormProps = {
+  thread: ThreadFormData;
+  submitLabel: string;
+  setThread: (thread: ThreadFormData) => void;
+  onSubmit: (e: React.SubmitEvent<HTMLFormElement>) =>
+    Promise<void>;
+};
 
-    try {
-      const thread = await postThread(title, post);
-
-      navigate(`/threads/${thread._id}`);
-    }
-    catch (err) {
-      console.log(err);
-    }
-  }
+export default function ThreadForm({
+  thread, submitLabel, setThread, onSubmit
+}: ThreadFormProps) {
+  
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       className="space-y-4"
     >
       <Input
        placeholder="Thread title"
        name="title"
-       value={title}
-       onChange={e => setTitle(e.target.value)}
+       value={thread.title}
+       onChange={e => setThread({
+        ...thread, title: e.target.value })}
       />
 
       <TextArea
         placeholder="Write your post..."
         name="thread"  
-        value={post}
-        onChange={e => setPost(e.target.value)}
+        value={thread.content}
+        onChange={e => setThread({
+          ...thread, content: e.target.value })}
       />
 
       <Button type="submit">
-        Publish Thread
+        {submitLabel}
       </Button>
     </form>
   );
