@@ -9,6 +9,7 @@ import ThreadViewPage from "./pages/ThreadViewPage";
 import CreateThreadPage from "./pages/CreateThreadPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import EditThreadPage from "./pages/EditThreadPage";
+import EditCommentPage from "./pages/EditCommentPage";
 
 function App() {
   useEffect(() => {
@@ -34,12 +35,17 @@ function App() {
         </ProtectedRoute>
       } />
 
-      <Route path="/edit/:id" element={
+      <Route path="/editThread/:id" element={
         <ProtectedRoute>
           <EditThreadPage />
         </ProtectedRoute>
       } />
 
+      <Route path="/editComment/:id" element={
+        <ProtectedRoute>
+          <EditCommentPage />
+        </ProtectedRoute>
+      } />
       <Route path="/login" element={<LoginPage />} />
       
       <Route path="/register" element={<RegisterPage />} />

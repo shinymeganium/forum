@@ -36,7 +36,7 @@ router.route("/").
       thread.comments += 1;
       await thread.save();
 
-      return res.status(201).json({ message: "comment created" });
+      return res.status(201).json(comment);
     }
     catch (err) {
       console.error(err);
@@ -87,7 +87,7 @@ router.route("/:id").
         return res.status(403).json({ message: "access denied" });
 
       const thread = await Thread.findById(comment.threadId);
-      thread.comments += 1;
+      thread.comments -= 1;
       await thread.save();
       
       await comment.deleteOne();

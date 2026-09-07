@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { deleteThread, getThread } from "../api/threadApi";
+import { deleteThread, getThread, type Thread } from "../api/threadApi";
+import { deleteComment, getComments, postComment, type Comment } from "../api/commentApi";
 import { useAuthStore } from "../stores/authStore";
-import { type Thread } from "../api/threadApi";
 import Layout from "../components/layout/Layout";
 import ThreadDetail from "../components/thread/ThreadDetail";
 import CommentForm from "../components/comment/CommentForm";
@@ -10,6 +10,8 @@ import CommentList from "../components/comment/CommentList";
 
 export default function ThreadViewPage() {
   const [thread, setThread] = useState<Thread | null>(null);
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState<Comment[]>([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -17,10 +19,10 @@ export default function ThreadViewPage() {
   const userId = useAuthStore(state => state.userId);
   const canEdit = isAuthenticated && thread?.author._id === userId;
 
-  const openEditing = () => {
-    navigate(`/edit/${id}`);
+  const openThreadEditing = () => {
+    navigate(`/editThread/${id}`);
   };
-
+  
   const deleteCurrentThread = async () => {
     if (thread) {
       await deleteThread(thread._id);
@@ -28,16 +30,37 @@ export default function ThreadViewPage() {
     }
   }
 
+  const openCommentEditing = (id:string) => {
+    navigate(`/editComment/${id}`);
+  };
+
+  const handleCommentSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (thread && userId)
+      await postComment(comment, thread._id, userId);
+
+    setComment("");
+  };
+
+  const deleteSelectedComment = async (id: string) => {
+    await deleteComment(id);
+  }
+
+
   useEffect(() => {
-    const loadThread = async () => {
+    const loadThreadAndComments = async () => {
       if (!id) return;
 
       const thread = await getThread(id);
       setThread(thread);
+
+      const comments = await getComments(id);
+      setComments(comments);
     };
 
-    loadThread();
-  }, [id]);
+    loadThreadAndComments();
+  }, [id, comments]);
 
   return (
     <Layout>
@@ -45,13 +68,22 @@ export default function ThreadViewPage() {
         <ThreadDetail
           thread={thread} 
           canEdit={canEdit}
-          onEdit={openEditing}
+          onEdit={openThreadEditing}
           onDelete={deleteCurrentThread}
         />
 
-        <CommentForm />
+        <CommentForm
+          comment={comment}
+          setComment={setComment}
+          submitLabel="Send comment"
+          onSubmit={handleCommentSubmit}
+        />
 
-        <CommentList />
+        <CommentList
+          comments={comments}
+          onEdit={openCommentEditing}
+          onDelete={deleteSelectedComment}
+        />
       </div>
     </Layout>
   );
