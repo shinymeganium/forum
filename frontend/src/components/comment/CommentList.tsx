@@ -4,12 +4,14 @@ import CommentCard from "./CommentCard";
 
 type CommentListProps = {
   comments: Comment[];
+  canEdit: boolean;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
 };
 
 export default function CommentList({
   comments,
+  canEdit,
   onEdit,
   onDelete
 }: CommentListProps) {
@@ -27,6 +29,7 @@ export default function CommentList({
           content={comment.content}
           author={comment.author.username}
           date={formatDate(comment.createdAt)}
+          canEdit={canEdit}
           onEdit={onEdit}
           onDelete={onDelete}
         />

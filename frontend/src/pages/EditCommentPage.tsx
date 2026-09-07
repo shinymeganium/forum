@@ -1,31 +1,38 @@
 import Layout from "../components/layout/Layout";
-import CommentForm from "../components/comment/CommentForm";
+import CommentForm, { type CommentFormData } from "../components/comment/CommentForm";
 import { useEffect, useState } from "react";
-import { getComment, putComment, type Comment } from "../api/commentApi";
-import { useParams } from "react-router";
+import { getComment, putComment } from "../api/commentApi";
+import { useNavigate, useParams } from "react-router";
 
 export default function EditCommentPage() {
-  const [comment, setComment] = useState<Comment | null>(null);
+  const [comment, setComment] =
+    useState<CommentFormData | null>(null);
+  const [threadId, setThreadId] = useState("");
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    if (!id || !comment) return;
+
     e.preventDefault();
 
-    // if (comment)
-    //   const editedComment = await putComment(comment?._id, comment?.content);
+    await putComment(id, comment.content);
+    navigate(`/threads/${threadId}`);
   };
 
   useEffect(() => {
-    const loadComment = async () => {
+    const getEditedComment = async () => {
       if (!id) return;
 
-      const openComment = await getComment(id);
-      if (openComment)
-        setComment(openComment);
-    }
+      const comment = await getComment(id);
+      setComment({ content: comment.content });
+      setThreadId(comment.threadId);
+    };
 
-    loadComment();
+    getEditedComment();
   }, []);
+
+  if (!comment) return <div>Loading...</div>;
 
   return (
     <Layout>

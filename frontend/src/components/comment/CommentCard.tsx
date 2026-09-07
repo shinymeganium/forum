@@ -6,6 +6,7 @@ type CommentCardProps = {
   content: string;
   author: string;
   date: string;
+  canEdit: boolean;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
 };
@@ -15,6 +16,7 @@ export default function CommentCard({
   content,
   author,
   date,
+  canEdit,
   onEdit,
   onDelete
 }: CommentCardProps) {
@@ -29,7 +31,7 @@ export default function CommentCard({
           {content}
         </p>
 
-        <div className="flex gap-2">
+        {canEdit && <div className="flex gap-2">
           <Button
             variant="secondary"
             onClick={() => onEdit(_id)}
@@ -43,7 +45,7 @@ export default function CommentCard({
           >
             Delete
           </Button>
-        </div>
+        </div>}
       </div>
     </Card>
   );

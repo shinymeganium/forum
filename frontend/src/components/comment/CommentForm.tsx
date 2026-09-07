@@ -1,11 +1,14 @@
 import TextArea from "../ui/TextArea";
 import Button from "../ui/Button";
-import type React from "react";
+
+export type CommentFormData = {
+  content: string;
+};
 
 type CommentFormProps = {
-  comment: string;
+  comment: CommentFormData;
   submitLabel: string;
-  setComment: (comment: string) => void;
+  setComment: (comment: CommentFormData) => void;
   onSubmit: (e: React.SubmitEvent<HTMLFormElement>) => Promise<void>;
 };
 
@@ -20,8 +23,9 @@ export default function CommentForm({
       <TextArea
         placeholder="Write a comment..."
         name="comment"
-        value={comment}
-        onChange={e => setComment(e.target.value)}
+        value={comment.content}
+        onChange={e => setComment({
+          ...comment, content: e.target.value })}
       />
 
       <Button type="submit">
