@@ -16,6 +16,8 @@ export default function ThreadViewPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const [commentEmpty, setCommentEmpty] = useState(false);
+
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
   const userId = useAuthStore(state => state.userId);
   const canEdit = isAuthenticated && thread?.author._id === userId;
@@ -57,13 +59,20 @@ export default function ThreadViewPage() {
 
   const handleCommentSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!thread) return;
 
-    if (thread && userId) {
-      await postComment(comment.content, thread._id, userId);
-      setComment({ ...comment, content: "" });
-      
-      await loadComments(thread._id);
+    if (!userId) return;
+
+    if (!comment.content) {
+      setCommentEmpty(true);
+      return;
     }
+
+    await postComment(comment.content, thread._id, userId);
+    setComment({ ...comment, content: "" });
+    setCommentEmpty(false);
+    
+    await loadComments(thread._id);
   };
 
   useEffect(() => {
@@ -87,6 +96,7 @@ export default function ThreadViewPage() {
           comment={comment}
           setComment={setComment}
           submitLabel="Send comment"
+          isEmpty={commentEmpty}
           onSubmit={handleCommentSubmit}
         />
 

@@ -10,13 +10,14 @@ export type ThreadFormData = {
 type ThreadFormProps = {
   thread: ThreadFormData;
   submitLabel: string;
+  isEmpty: boolean;
   setThread: (thread: ThreadFormData) => void;
   onSubmit: (e: React.SubmitEvent<HTMLFormElement>) =>
     Promise<void>;
 };
 
 export default function ThreadForm({
-  thread, submitLabel, setThread, onSubmit
+  thread, submitLabel, isEmpty, setThread, onSubmit
 }: ThreadFormProps) {
   
   return (
@@ -39,6 +40,10 @@ export default function ThreadForm({
         onChange={e => setThread({
           ...thread, content: e.target.value })}
       />
+
+      {isEmpty && <p className="pb-2 font-bold text-red-500">
+        Fill both title and post!
+      </p>}
 
       <Button type="submit">
         {submitLabel}

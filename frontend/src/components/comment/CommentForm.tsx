@@ -8,12 +8,13 @@ export type CommentFormData = {
 type CommentFormProps = {
   comment: CommentFormData;
   submitLabel: string;
+  isEmpty: boolean;
   setComment: (comment: CommentFormData) => void;
   onSubmit: (e: React.SubmitEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export default function CommentForm({
-  comment, submitLabel, setComment, onSubmit
+  comment, submitLabel, isEmpty, setComment, onSubmit
 }: CommentFormProps) {
   return (
     <form
@@ -27,6 +28,10 @@ export default function CommentForm({
         onChange={e => setComment({
           ...comment, content: e.target.value })}
       />
+
+      {isEmpty && <p className="pb-2 font-bold text-red-500">
+        Fill out a comment!
+      </p>}
 
       <Button type="submit">
         {submitLabel}

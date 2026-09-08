@@ -8,12 +8,19 @@ import ThreadForm from "../components/thread/ThreadForm";
 export default function CreateThreadPage() {
   const [threadInputs, setThreadInputs] =
     useState<ThreadFormData>({ title: "", content: "" });
+  const [isEmpty, setIsEmpty] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!threadInputs.title || !threadInputs.content) {
+      setIsEmpty(true);
+      return;
+    }
+
     const post = await postThread(threadInputs.title, threadInputs.content);
+    setIsEmpty(false);
     navigate(`/threads/${ post._id}`);
   };
 
@@ -27,6 +34,7 @@ export default function CreateThreadPage() {
         <ThreadForm
           thread={threadInputs}
           submitLabel="Post"
+          isEmpty={isEmpty}
           setThread={setThreadInputs}
           onSubmit={handleSubmit}
         />
