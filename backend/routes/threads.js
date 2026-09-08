@@ -94,7 +94,8 @@ router.route("/:id").
   router.route("/:id/comments").
     get(async (req, res) => {
       try {
-        const comments = await Comment.find().populate("author", "username").sort({ "createdAt": -1 }).limit(20);
+        const comments = await Comment.find(
+          { threadId: req.params.id }).populate("author", "username").sort({ "createdAt": -1 }).limit(20);
         return res.status(200).json(comments);
       }
       catch (err) {

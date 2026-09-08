@@ -19,15 +19,27 @@ export default function ThreadViewPage() {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
   const userId = useAuthStore(state => state.userId);
   const canEdit = isAuthenticated && thread?.author._id === userId;
-  const canEditComments = isAuthenticated;
+
+  const canEditComment = (comment: Comment): boolean => {
+    return isAuthenticated && comment.author._id === userId;
+  };
+
+  const loadThread = async (id: string) => {
+    const res = await getThread(id);
+    setThread(res);
+  };
 
   const loadComments = async (id: string) => {
-    const comments = await getComments(id);
-    setComments(comments);
+    const res = await getComments(id);
+    setComments(res);
   };
 
   const openThreadEditing = () => {
     navigate(`/editThread/${id}`);
+  };
+  
+  const openCommentEditing = (id:string) => {
+    navigate(`/editComment/${id}`);
   };
   
   const deleteCurrentThread = async () => {
@@ -35,10 +47,12 @@ export default function ThreadViewPage() {
       await deleteThread(thread._id);
       navigate("/profile");
     }
-  }
-
-  const openCommentEditing = (id:string) => {
-    navigate(`/editComment/${id}`);
+  };
+  
+  const deleteSelectedComment = async (id: string) => {
+    await deleteComment(id);
+    if (thread)
+      await loadComments(thread._id);
   };
 
   const handleCommentSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -52,23 +66,11 @@ export default function ThreadViewPage() {
     }
   };
 
-  const deleteSelectedComment = async (id: string) => {
-    await deleteComment(id);
-    if (thread)
-      await loadComments(thread._id);
-  }
-
   useEffect(() => {
-    const loadThreadAndComments = async () => {
-      if (!id) return;
+    if (!id) return;
 
-      const thread = await getThread(id);
-      setThread(thread);
-
-      await loadComments(id);      
-    };
-
-    loadThreadAndComments();
+    loadThread(id);
+    loadComments(id);
   }, [id]);
 
   return (
@@ -90,7 +92,7 @@ export default function ThreadViewPage() {
 
         <CommentList
           comments={comments}
-          canEdit={canEdit}
+          canEdit={canEditComment}
           onEdit={openCommentEditing}
           onDelete={deleteSelectedComment}
         />
