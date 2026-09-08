@@ -3,6 +3,7 @@ import Button from "../ui/Button";
 
 type CommentCardProps = {
   _id: string;
+  threadTitle?: string;
   content: string;
   author: string;
   date: string;
@@ -13,6 +14,7 @@ type CommentCardProps = {
 
 export default function CommentCard({
   _id,
+  threadTitle,
   content,
   author,
   date,
@@ -25,6 +27,12 @@ export default function CommentCard({
       <div className="space-y-3">
         <p className="text-sm text-gray-500">
           {author} • {date}
+        </p>
+
+        <p className="text-sm text-gray-500">
+          {threadTitle && (
+            <span>from thread • {threadTitle}</span>
+          )}
         </p>
 
         <p>

@@ -7,7 +7,10 @@ export type Comment = {
     _id: string,
     username: string
   },
-  threadId: string,
+  threadId: {
+    _id: string,
+    title: string
+  },
   createdAt: string,
   updatedAt: string
 };

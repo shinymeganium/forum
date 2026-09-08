@@ -26,6 +26,7 @@ export default function CommentList({
         <CommentCard
           key={comment._id}
           _id={comment._id}
+          threadTitle={comment.threadId.title}
           content={comment.content}
           author={comment.author.username}
           date={formatDate(comment.createdAt)}
