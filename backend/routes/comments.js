@@ -47,7 +47,9 @@ router.route("/").
 router.route("/:id").
   get(async (req, res) => {
     try {
-      const comment = await Comment.findById(req.params.id).populate("author", "username");
+      const comment = await Comment.findById(req.params.id)
+      .populate("author", "username")
+      .populate("threadId", "title");
       if (!comment)
         return res.status(404).json({ message: "comment not found" });
 
