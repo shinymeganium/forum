@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Link } from "react-router";
 import Card from "../ui/Card";
 
 type ThreadCardProps = {
@@ -22,12 +22,12 @@ export default function ThreadCard({
     <Card>
       <div className="space-y-2">
         <h2 className="text-xl font-semibold">
-          <NavLink
+          <Link
             to={`/threads/${_id}`}
             className="hover:underline"
           >
             {title}
-          </NavLink>
+          </Link>
         </h2>
 
         <p className="text-sm text-gray-500">
