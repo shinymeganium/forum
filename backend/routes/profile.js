@@ -47,7 +47,6 @@ router.get("/comments", authenticateToken, async (req, res) => {
       .populate("threadId", "title")
       .sort({ "createdAt": -1 }).limit(20);
 
-    console.log(JSON.stringify(comments[0], null, 2));
     return res.status(200).json(comments);
   }
   catch (err) {

@@ -49,11 +49,11 @@ export default function UserMenu() {
   return (
     <div
       ref={menuRef}
-      className="flex items-center gap-2 cursor-pointer"
+      className="flex items-center gap-2"
     >
       <button
         onClick={() => setOpen(!open)} 
-        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-pink-100 transition"
+        className="flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer hover:bg-pink-100 transition"
       >
         <div className="w-8 h-8 rounded-full bg-soft-pink" />
 
@@ -64,13 +64,13 @@ export default function UserMenu() {
 
         <button 
           onClick={handleProfile}
-          className="w-full text-left px-4 py-3 hover:bg-pink-50 transition">
+          className="w-full text-left px-4 py-3 cursor-pointer hover:bg-pink-50 transition">
             Profile
         </button>
 
         <button
          onClick={handleLogout}
-         className="w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 transition">
+         className="w-full text-left px-4 py-3 cursor-pointer hover:bg-red-50 text-red-600 transition">
           Logout
          </button>
       </div>)}
