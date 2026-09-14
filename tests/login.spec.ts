@@ -7,7 +7,7 @@ test.skip("user login", async ({ page }) => {
 
   await page.getByRole("banner").getByRole("button", { name: "Login" }).click();
 
-  await expect(page.getByRole("heading", { name: "Welcome Back" })).toBeVisible();
+  await expect(page.getByText("Login to continue")).toBeVisible();
 
   await page.getByLabel(/username/i).fill("susu");
 

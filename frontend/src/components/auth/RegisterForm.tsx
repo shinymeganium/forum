@@ -8,6 +8,10 @@ export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isUsernameEmpty, setIsUsernameEmpty] = useState(false);
+  const [isEmailEmpty, setIsEmailEmpty] = useState(false);
+  const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
+  const [showRegisterError, setShowRegisterError] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (
@@ -16,11 +20,30 @@ export default function RegisterForm() {
     e.preventDefault();
 
     try {
+      setIsUsernameEmpty(false);
+      setIsEmailEmpty(false);
+      setIsPasswordEmpty(false);
+      setShowRegisterError(false);
+
       await registerRequest(username, email, password);
 
       navigate("/login");
     }
     catch (err) {
+      if (!username) {
+        setIsUsernameEmpty(true);
+        return;
+      }
+      if (!email) {
+        setIsEmailEmpty(true);
+        return;
+      }
+      if (!password) {
+        setIsPasswordEmpty(true);
+        return;
+      }
+
+      setShowRegisterError(true);
       console.log(err);
     }
   };
@@ -36,6 +59,10 @@ export default function RegisterForm() {
         onChange={e => setUsername(e.target.value)}
       />
 
+      {isUsernameEmpty && <p className="text-red-500">
+        Username is needed
+      </p>}
+
       <Input
         placeholder="Email"
         label="Email"
@@ -46,6 +73,10 @@ export default function RegisterForm() {
         onChange={e => setEmail(e.target.value)}
       />
 
+      {isEmailEmpty && <p className="text-red-500">
+        Email is needed
+      </p>}
+
       <Input
         placeholder="Password"
         label="Password"
@@ -55,6 +86,10 @@ export default function RegisterForm() {
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
+
+      {isPasswordEmpty && <p className="text-red-500">
+        Password is needed
+      </p>}
 
       <div className="flex justify-between">
         <Button
@@ -68,6 +103,10 @@ export default function RegisterForm() {
           Return
         </button>
       </div>
+
+      {showRegisterError && <p className="text-red-500">
+        Something went wrong. Please try again.
+      </p>}
     </form>
   );
 }
