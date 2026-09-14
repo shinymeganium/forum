@@ -16,4 +16,12 @@ test.skip("user login", async ({ page }) => {
   await page.getByRole("button", { name: "Login" }).click();
 
   await expect(page.getByRole("banner").getByRole("button", { name: /susu/ })).toBeVisible();
+
+  await page.getByRole("link", { name: /home/i }).click();
+
+  await expect(page.getByRole('heading', { name: /latest threads/i })).toBeVisible();
+
+  await page.getByRole("main").getByRole("link").first().click();
+
+  await expect(page.getByPlaceholder(/write a comment/i)).toBeVisible();
 });
