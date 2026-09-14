@@ -30,6 +30,7 @@ export default function RegisterForm() {
       <Input
         label="Username"
         placeholder="Username"
+        id="username"
         name="username"
         value={username}
         onChange={e => setUsername(e.target.value)}
@@ -39,6 +40,7 @@ export default function RegisterForm() {
         placeholder="Email"
         label="Email"
         type="email"
+        id="email"
         name="email"
         value={email}
         onChange={e => setEmail(e.target.value)}
@@ -48,6 +50,7 @@ export default function RegisterForm() {
         placeholder="Password"
         label="Password"
         type="password"
+        id="password"
         name="password"
         value={password}
         onChange={e => setPassword(e.target.value)}

@@ -38,6 +38,7 @@ export default function LoginForm() {
       <Input
         label="Username"
         placeholder="Username"
+        id="username"
         name="username"
         value={username}
         onChange={e => setUsername(e.target.value)}
@@ -47,6 +48,7 @@ export default function LoginForm() {
         label="Password"
         placeholder="Password"
         type="password"
+        id="password"
         name="password"
         value={password}
         onChange={e => setPassword(e.target.value)}

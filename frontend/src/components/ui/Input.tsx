@@ -2,6 +2,7 @@ type InputProps = {
   label?: string;
   placeholder?: string;
   type?: string;
+  id?: string;
   name?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -11,6 +12,7 @@ export default function Input({
   label,
   placeholder,
   type = "text",
+  id,
   name,
   value,
   onChange
@@ -18,7 +20,7 @@ export default function Input({
   return (
     <div className="">
       {label && (
-        <label htmlFor={name} className="text-sm font-medium text-gray-700">
+        <label htmlFor={id} className="text-sm font-medium text-gray-700">
           {label}
         </label>
       )}
@@ -26,6 +28,7 @@ export default function Input({
       <input
         placeholder={placeholder}
         type={type}
+        id={id}
         name={name}
         value={value}
         onChange={onChange}
