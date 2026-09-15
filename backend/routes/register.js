@@ -16,6 +16,9 @@ router.post("/", async (req, res) => {
       return res.status(409).json({ message: "email already exists" });
 
     const password = req.body.password;
+    if (!password)
+      return res.status(422).json({ message: "password required" });
+
     // salt protects from rainbow table attacks
     // how much work bcrypt does while hashing
     const saltRounds = 10;

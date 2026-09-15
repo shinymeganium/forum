@@ -20,8 +20,6 @@ router.post("/", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "14d" });
 
-    //console.log("user:", user);
-
     return res.status(200).json({ token, userId: user._id, username: user.username, role: user.role });
   }
   catch (err) {

@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
 
-test.skip("post a comment", async ({ page }) => {
+const title = `Test thread ${Date.now()}`;
+const content = "This is a test thread created by Playwright";
+
+test.skip("delete thread", async ({ page }) => {
   await page.goto("http://localhost:5173");
 
   await expect(page).toHaveTitle(/SoftForum/i);
@@ -21,22 +24,17 @@ test.skip("post a comment", async ({ page }) => {
 
   await expect(page.getByText(/create a new thread/i)).toBeVisible();
 
-  const title = `Test thread ${Date.now()}`;
   await page.getByPlaceholder(/thread title/i).fill(title);
 
-  const content = "This is a test thread created by Playwright";
   await page.getByPlaceholder(/write your post/i).fill(content);
 
   await page.getByRole("button", { name: /post/i }).click();
-  
+
   await expect(page.getByText(content)).toBeVisible();
-  
-  await expect(page.getByPlaceholder(/write a comment/i)).toBeVisible();
-  
-  const comment = `Test comment ${Date.now()}`;
-  await page.getByPlaceholder(/write a comment/i).fill(comment);
 
-  await page.getByRole("button", { name: /send comment/i }).click();
+  await page.getByRole("button", { name: /delete/i }).click();
 
-  await expect(page.getByText(comment)).toBeVisible();
+  await expect(page.getByText(/my threads/i)).toBeVisible();
+
+  await expect(page.getByText(title)).toBeHidden();
 });
