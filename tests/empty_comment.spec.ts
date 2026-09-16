@@ -4,9 +4,8 @@ const username = "susu";
 const password = "123";
 const title = `Test thread ${Date.now()}`;
 const content = "This is a test thread created by Playwright";
-const comment = `Test comment ${Date.now()}`;
 
-test("post a comment", async ({ page }) => {
+test("empty comment", async ({ page }) => {
   await page.goto("http://localhost:5173");
 
   await expect(page).toHaveTitle(/softforum/i);
@@ -37,9 +36,7 @@ test("post a comment", async ({ page }) => {
   
   await expect(page.getByPlaceholder(/write a comment/i)).toBeVisible();
   
-  await page.getByPlaceholder(/write a comment/i).fill(comment);
-
   await page.getByRole("button", { name: /send comment/i }).click();
 
-  await expect(page.getByText(comment)).toBeVisible();
+  await expect(page.getByText(/fill out a comment/i)).toBeVisible();
 });

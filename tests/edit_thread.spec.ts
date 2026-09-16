@@ -6,7 +6,7 @@ const title = `Test thread ${Date.now()}`;
 const content = "Test created by Playwright.";
 const editedContent = "This thread was edited by Playwright.";
 
-test.skip("edit thread", async ({ page }) => {
+test("edit thread", async ({ page }) => {
   await page.goto("http://localhost:5173");
 
   await expect(page).toHaveTitle(/softforum/i);
@@ -35,7 +35,8 @@ test.skip("edit thread", async ({ page }) => {
 
   await expect(page.getByText(title)).toBeVisible();
 
-  await page.getByRole("button", { name: /edit/i }).click();
+  const thread = page.locator("div").filter({ hasText: title });
+  await thread.getByRole("button", { name: /edit/i }).click();
 
   await expect(page.getByRole("button", { name: /save/i })).toBeVisible();
 
