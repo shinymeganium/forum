@@ -8,6 +8,7 @@ import usersRouter from "./routes/users.js";
 import threadsRouter from "./routes/threads.js";
 import profileRouter from "./routes/profile.js";
 import commentsRouter from "./routes/comments.js";
+import { testUser } from "./dummy/create_test_user.js";
 
 const app = express();
 
@@ -16,7 +17,8 @@ mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("connected to mongodb"))
 .catch(err => console.error(err));
 
-//await mongoose.connection.dropDatabase();
+// create a test user for github actions
+await testUser();
 
 app.use(cors());
 

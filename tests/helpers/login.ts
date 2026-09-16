@@ -1,7 +1,7 @@
 import { expect, Page } from "@playwright/test";
 
 export const login = async (page: Page) => {
-  await page.goto("http://localhost:5173");
+  await page.goto("/");
 
   await expect(page).toHaveTitle(/softforum/i);
 
