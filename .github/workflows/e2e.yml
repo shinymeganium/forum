@@ -1,9 +1,9 @@
-name: Playwright Tests
+name: Build project and run Playwright tests
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 jobs:
   test:
     timeout-minutes: 60

@@ -13,7 +13,7 @@ test("edit thread", async ({ page }) => {
 
   await expect(page.getByRole("button", { name: /save/i })).toBeVisible();
 
-  await page.getByRole("textbox", { name: /write your post/i }).fill(title); // to simulate playwright error
+  await page.getByRole("textbox", { name: /write your post/i }).fill(editedContent);
 
   await page.getByRole("button", { name: /save/i }).click();
 
