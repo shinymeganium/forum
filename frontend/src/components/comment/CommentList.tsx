@@ -26,7 +26,7 @@ export default function CommentList({
         <CommentCard
           key={comment._id}
           _id={comment._id}
-          threadTitle={comment.threadId.title}
+          threadTitle={comment.threadId ? comment.threadId.title : "[Deleted thread]"}
           content={comment.content}
           author={comment.author.username}
           date={formatDate(comment.createdAt)}
