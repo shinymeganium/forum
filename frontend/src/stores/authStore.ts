@@ -8,8 +8,6 @@ type AuthState = {
   isAuthenticated: boolean;
   isLoading: boolean;
 
-  initializeAuth: (token: string) => void;
-
   login: (
     token: string,
     userId: string,
@@ -29,12 +27,6 @@ export const useAuthStore = create<AuthState>()((set) => ({
   role: null,
   isAuthenticated: false,
   isLoading: true,
-
-  initializeAuth: (token) => set(() => ({
-    // if (token) {
-
-    // }
-  })),
 
   login: (token, userId, username, role) => set(() => ({
     token, userId, username, role, isAuthenticated: true

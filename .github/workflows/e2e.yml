@@ -24,10 +24,6 @@ jobs:
       run: npx playwright install --with-deps
     - name: Start MongoDB
       run: docker compose up -d
-    - name: Build frontend
-      run: |
-        cd frontend
-        npm run build
     - name: Install backend dependencies
       run: |
         cd backend
@@ -36,12 +32,16 @@ jobs:
       run: |
         cd frontend
         npm ci
+    - name: Build frontend
+      run: |
+        cd frontend
+        npm run build
     - name: Start backend
       run: |
         cd backend
         npm run dev &
     - name: Check backend
-      run : curl http://localhost:3000/api/health
+      run: curl http://localhost:3000/api/health
     - name: Start frontend
       run: |
         cd frontend
