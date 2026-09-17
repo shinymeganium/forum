@@ -18,7 +18,8 @@ mongoose.connect(process.env.MONGO_URI)
 .catch(err => console.error(err));
 
 // create a test user for github actions
-await testUser();
+// figure out how this can be disabled in production
+//await testUser();
 
 app.use(cors());
 

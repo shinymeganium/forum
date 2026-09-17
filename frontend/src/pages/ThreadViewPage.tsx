@@ -85,13 +85,14 @@ export default function ThreadViewPage() {
           onDelete={deleteCurrentThread}
         />
 
+        {isAuthenticated && 
         <CommentForm
           comment={newComment}
           setComment={setNewComment}
           submitLabel="Send comment"
           isEmpty={isNewCommentEmpty}
           onSubmit={handleCommentSubmit}
-        />
+        />}
 
         <CommentList
           comments={comments}
