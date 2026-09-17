@@ -32,6 +32,8 @@ jobs:
       run: |
         cd frontend
         npm ci
+    - name: Create frontend env
+      run: echo "VITE_API_URL=http://localhost:3000" >> frontend/.env
     - name: Build frontend
       run: |
         cd frontend
