@@ -18,6 +18,7 @@ jobs:
         echo "MONGO_URI=mongodb://localhost:27017/forum" > backend/.env
         echo "PORT=3000" >> backend/.env
         echo "JWT_SECRET=super_secret_key_noone_will_guess" >> backend/.env
+        echo "CREATE_TEST_USER=true" >> backend/.env
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
