@@ -6,7 +6,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test --project=e2e",
+    "test:production": "playwright test --project=production"
   },
   "repository": {
     "type": "git",
