@@ -71,10 +71,10 @@ npm run dev
 
 ------ CHECK THIS PART LATER ------
 
-Create `frontend/.env` for local development. The URL should include the backend API prefix:
+Create `frontend/.env` for local development. Use the backend host without the `/api` suffix because the API modules add that prefix to each request:
 
 ```env
-VITE_API_URL=http://localhost:3000/api
+VITE_API_URL=http://localhost:3000
 ```
 
 Start the frontend in a separate terminal:
@@ -89,7 +89,7 @@ The local frontend is normally available at `http://localhost:5173`.
 For the deployed frontend, configure `VITE_API_URL` to point to the deployed backend API, for example:
 
 ```env
-VITE_API_URL=https://softforum.onrender.com/api
+VITE_API_URL=https://softforum.onrender.com
 ```
 
 ## Backend
