@@ -53,6 +53,8 @@ jobs:
       run: sleep 30
     - name: Run Playwright e2e tests
       run: npm run test:e2e
+    - name: Deploy Render
+      run: curl "${{ secrets.RENDER_DEPLOY_HOOK }}"
     - uses: actions/upload-artifact@v6
       if: ${{ !cancelled() }}
       with:
