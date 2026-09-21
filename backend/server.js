@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // create a test user for testing
 if (process.env.CREATE_TEST_USER === "true")
-  await testUser();//
+  await testUser();
 
 app.use(cors());
 
