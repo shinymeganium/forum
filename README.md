@@ -7,6 +7,8 @@ SoftForum is a full-stack discussion forum. Users can register and log in, creat
 - Frontend: https://softforum.vercel.app
 - Backend API: https://softforum.onrender.com/
 
+When visiting the live frontend, it may take a little while for all threads to load because the backend may be sleeping and needs time to start up.
+
 ## Technologies
 
 - **Languages:** JavaScript, TypeScript, HTML, and CSS
