@@ -22,8 +22,7 @@ router.route("/").
       const post = new Thread({
         title: req.body.title,
         content: req.body.content,
-        author: req.user.userId,
-        categories: "temp"
+        author: req.user.userId
       });
 
       await post.save();

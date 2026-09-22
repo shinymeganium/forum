@@ -15,10 +15,6 @@ const threadSchema = new mongoose.Schema(
       ref: "User",
       required: true
     },
-    categories: {
-      type: [String],
-      default: []
-    },
     comments: {
       type: Number,
       default: 0

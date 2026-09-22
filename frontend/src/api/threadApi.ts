@@ -8,7 +8,6 @@ export type Thread = {
     _id: string,
     username: string
   },
-  categories: string[],
   comments: number,
   createdAt: string,
   updatedAt: string

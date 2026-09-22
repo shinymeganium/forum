@@ -69,8 +69,6 @@ npm run dev
 
 ### Frontend Environment
 
------- CHECK THIS PART LATER ------
-
 Create `frontend/.env` for local development. Use the backend host without the `/api` suffix because the API modules add that prefix to each request:
 
 ```env
@@ -121,9 +119,8 @@ The backend is an Express REST API. It connects to MongoDB through Mongoose and 
 ### Database Models
 
 - **User:** username, email, password hash, role, and timestamps
-- **Thread:** title, content, author, categories, comment count, and timestamps
+- **Thread:** title, content, author, comment count, and timestamps
 - **Comment:** content, author, related thread, and timestamps
-- **Category:** name and description
 
 ### API Routes
 
@@ -284,10 +281,10 @@ The CI/CD workflows use repository secrets for values such as `MONGO_URI`, `JWT_
 - `npm run lint` - Run ESLint
 - `npm run preview` - Preview the production build locally
 
-## Author
+## Todo
 
-<!-- Add author information here. -->
-
-## License
-
-This project is free to use. No specific license has been selected yet.
+- categories
+- date format
+- edited stamps
+- admin user and panel
+- nicer layout
