@@ -19,7 +19,8 @@ export const getThreads = async (): Promise<Thread[]> => {
   return res.data;
 };
 
-export const getThread = async (id: string): Promise<Thread> => {
+export const getThread = async (id: string)
+: Promise<Thread> => {
   const res = await api.get(`/api/threads/${id}`);
 
   return res.data;
@@ -43,7 +44,8 @@ export const putThread = async (
   return res.data;
 };
 
-export const deleteThread = async (id: string): Promise<{ message: string }> => {
+export const deleteThread = async (id: string)
+: Promise<{ message: string }> => {
   const res = await api.delete(`/api/threads/${id}`);
 
   return res.data;

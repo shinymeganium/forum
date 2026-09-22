@@ -288,6 +288,8 @@ The CI/CD workflows use repository secrets for values such as `MONGO_URI`, `JWT_
 ## Todo
 
 - categories
+- pagination
+- search threads
 - date format
 - edited stamps
 - admin user and panel

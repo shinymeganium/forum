@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export default function authenticateToken(req, res, next) {
+const authenticateToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader)
@@ -17,3 +17,5 @@ export default function authenticateToken(req, res, next) {
     return res.status(401).json({ message: "invalid token" });
   }
 }
+
+export default authenticateToken;

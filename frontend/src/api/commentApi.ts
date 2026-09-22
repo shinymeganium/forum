@@ -15,20 +15,23 @@ export type Comment = {
   updatedAt: string
 };
 
-export const getComments = async (id: string): Promise<Comment[]> => {
+export const getComments = async (id: string)
+: Promise<Comment[]> => {
   const res = await api.get(`/api/threads/${id}/comments`);
 
   return res.data;
 };
 
-export const getComment = async (id: string): Promise<Comment> => {
+export const getComment = async (id: string)
+: Promise<Comment> => {
   const res = await api.get(`/api/comments/${id}`);
 
   return res.data;
 };
 
 export const postComment = async (
-  content: string, threadId: string, userId: string): Promise<Comment> => {
+content: string, threadId: string, userId: string
+): Promise<Comment> => {
   const res = await api.post("/api/comments",
     { content, threadId, userId });
 
@@ -43,7 +46,8 @@ export const putComment = async (
   return res.data;
 };
 
-export const deleteComment = async (id: string): Promise<{ message: string }> => {
+export const deleteComment = async (id: string)
+: Promise<{ message: string }> => {
   const res = await api.delete(`/api/comments/${id}`);
 
   return res.data;

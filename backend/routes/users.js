@@ -8,8 +8,8 @@ router.get("/", async (req, res) => {
   return res.status(200).json(users);
 });
 
-router.route("/:id").
-  get(async (req, res) => {
+router.route("/:id")
+  .get(async (req, res) => {
     try {
       const user = await User.findById(req.params.id).select("-hash");
       if (!user)

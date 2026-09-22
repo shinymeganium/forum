@@ -5,8 +5,8 @@ import authenticateToken from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.route("/").
-  get(async (req, res) => {
+router.route("/")
+  .get(async (req, res) => {
     try {
       const comments = await Comment.find().populate("author", "username").sort({ "createdAt": -1 }).limit(20);
       return res.status(200).json(comments);
@@ -15,8 +15,8 @@ router.route("/").
       console.log(err);
       return res.status(500).json({ message: "internal server error" });
     }
-  }).
-  post(authenticateToken, async (req, res) => {
+  })
+  .post(authenticateToken, async (req, res) => {
     try {
       const thread = await Thread.findById(req.body.threadId);
       if (!thread)
@@ -44,8 +44,8 @@ router.route("/").
     }
   });
 
-router.route("/:id").
-  get(async (req, res) => {
+router.route("/:id")
+  .get(async (req, res) => {
     try {
       const comment = await Comment.findById(req.params.id)
       .populate("author", "username")
@@ -59,8 +59,8 @@ router.route("/:id").
       console.log(err);
       return res.status(500).json({ message: "internal server error" });
     }
-  }).
-  put(authenticateToken, async (req, res) => {
+  })
+  .put(authenticateToken, async (req, res) => {
     try {
       const comment = await Comment.findById(req.params.id);
       if (!comment)
@@ -78,8 +78,8 @@ router.route("/:id").
       console.log(err);
       return res.status(500).json({ message: "internal server error" });
     }
-  }).
-  delete(authenticateToken, async (req, res) => {
+  })
+  .delete(authenticateToken, async (req, res) => {
     try {
       const comment = await Comment.findById(req.params.id);
       if (!comment)

@@ -8,7 +8,6 @@ const router = express.Router();
 router.route("/").
   get(async (req, res) => {
     try {
-      //await Thread.deleteMany();
       const threads = await Thread.find().populate("author", "username").sort({ "createdAt": -1 }).limit(20);
       return res.status(200).json(threads);
     }
@@ -16,8 +15,8 @@ router.route("/").
       console.error(err);
       return res.status(500).json({ message: "internal server error" });
     }
-  }).
-  post(authenticateToken, async (req, res) => {
+  })
+  .post(authenticateToken, async (req, res) => {
     try {
       const post = new Thread({
         title: req.body.title,
@@ -47,8 +46,8 @@ router.route("/:id").
       console.log(err);
       return res.status(500).json({ message: "internal server error" });
     }
-  }).
-  put(authenticateToken, async (req, res) => {
+  })
+  .put(authenticateToken, async (req, res) => {
     try {
       // demonstrating authorization check before editing
       const thread = await Thread.findById(req.params.id);
@@ -69,8 +68,8 @@ router.route("/:id").
       console.log(err);
       return res.status(500).json({ message: "internal server error" });
     }
-  }).
-  delete(authenticateToken, async (req, res) => {
+  })
+  .delete(authenticateToken, async (req, res) => {
     try {
       // demonstrating authorization check before deleting
       const thread = await Thread.findById(req.params.id);
