@@ -20,12 +20,13 @@ When visiting the live frontend, it may take a little while for all threads to l
 ## Project Structure
 
 ```forum
-.
-├── backend/       Express API and MongoDB models
-├── frontend/      React and TypeScript application
-├── tests/         Playwright end-to-end and production tests and live app smoke tests
-├── compose.yaml   MongoDB Docker Compose configuration
-└── playwright.config.ts
+
+├── forum
+  ├── backend/       Express API and MongoDB models
+  ├── frontend/      React and TypeScript application
+  ├── tests/         Playwright end-to-end and production tests and live app smoke tests
+  ├── compose.yaml   MongoDB Docker Compose configuration
+  └── playwright.config.ts
 ```
 
 ## Requirements
@@ -35,7 +36,8 @@ When visiting the live frontend, it may take a little while for all threads to l
 
 ## Installation and Local Development
 
-Install dependencies in each project folder:
+Install dependencies in each project folder
+(in root folder and both front and backend folders):
 
 ```bash
 npm install
